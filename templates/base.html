@@ -45,7 +45,9 @@
               <a class="nav-link active text-warning h5" aria-current="page" href="{% url 'index' %}">Home</a>
               <a class="nav-link text-info h5" href="#">gitHub-User</a>
               <a class="nav-link text-success h5" href="#">Users_Images</a>
-              <a class="nav-link text-danger h5" href="#">Logout</a>
+              {% block logout %}
+               
+              {% endblock logout %}
             </div>
           </div>
         </div>
