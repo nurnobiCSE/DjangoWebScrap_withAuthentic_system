@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+{%block title%}
+ login to system
+{% endblock title %}
+
+{% block body %}
+  <div class="container">
+    <h1>this is login page</h1>
+    <div class="col-md-4">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleInputEmail">Email</label>
+                <input type="email" class="form-control" name="email" id="exampleInputEmail" placeholder="Enter@email">
+                <small id="emailHelp" class="form-text text-muted">enter the valid email that is registered</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword">Password</label>
+                <input type="password" class="form-control" name="password" id="exampleInputPassword" placeholder="*******">
+                
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Login</button>
+            <a href="{% url 'signup' %}" class="btn btn-link">SignUp Here!</a>
+        </form>
+    </div>
+</div>
+
+{% endblock body %}
