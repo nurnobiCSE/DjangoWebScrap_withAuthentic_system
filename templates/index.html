@@ -14,12 +14,12 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="exampleInputEmail">User Name</label>
-                <input type="text" class="form-control" name="username" id="exampleInputEmail" placeholder="Enter@email">
+                <input required type="text" class="form-control" name="username" id="exampleInputEmail" placeholder="Enter@email">
                 <small id="emailHelp" class="form-text text-muted">enter the valid email that is registered</small>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword">Password</label>
-                <input type="password" class="form-control" name="password" id="exampleInputPassword" placeholder="*******">
+                <input required type="password" class="form-control" name="password" id="exampleInputPassword" placeholder="*******">
                 
             </div>
             <button type="submit" class="btn btn-primary mt-3">Login</button>

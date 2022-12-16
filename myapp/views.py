@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -18,7 +19,7 @@ def index(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect('index')
+    return redirect('login')
 
 def Signup(request):
     if request.method == 'POST':
@@ -45,6 +46,6 @@ def Signup(request):
 
     return render(request,'signup.html')
 
-
+@login_required
 def Dashboard(request):
     return render(request,'dashboard.html')
