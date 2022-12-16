@@ -49,3 +49,9 @@ def Signup(request):
 @login_required
 def Dashboard(request):
     return render(request,'dashboard.html')
+
+def AdUser(request):
+    return render(request,'user_github.html')
+
+def Profile(request):
+    return render(request,'image_github.html')
