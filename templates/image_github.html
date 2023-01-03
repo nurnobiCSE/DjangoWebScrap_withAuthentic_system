@@ -4,5 +4,20 @@ github-profile-picture
 {%endblock title%}
  
 {%block body%}
-<h1>Github User's profile picture List</h1>
+<h1 class="text-center">Github User's profile picture List</h1>
+ <br>
+<div class="d-flex flex-wrap justify-content-center">
+    {% for data in data %}
+    <div class="card mx-2 mb-4" style="width: 18rem;">
+        <img src="{{data.githubuserimage}}" class="card-img-top" alt="Avater">
+        <div class="card-body">
+          <h5 class="card-title">{{data.githubuser}}</h5>
+          <p class="card-text">Posted By : {{data.username}}</p>
+          <a href="https://github.com/{{data.githubuser}}" target="_blank" class="btn btn-primary">View Profile</a>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+
+
 {% endblock body %}

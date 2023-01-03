@@ -4,6 +4,10 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+import requests
+from bs4 import BeautifulSoup as bs
+
+from .models import *
 # Create your views here.
 
 def index(request):
@@ -15,6 +19,9 @@ def index(request):
         if user is not None:
             login(request,user)
             return redirect('dashboard')
+        else:
+            messages.error(request,"incorrect username or password!!")
+            return redirect('login')    
     return render(request,'index.html')
 
 def logout(request):
@@ -39,7 +46,7 @@ def Signup(request):
                 user = User.objects.create_user(username=username,email=email,password=password)    
                 user.save()
                 messages.success(request,"registration successful")
-                return redirect('index')
+                return redirect('login')
         else:
             messages.warning(request,"Password is not matched!")                    
             return redirect('signup')
@@ -50,8 +57,34 @@ def Signup(request):
 def Dashboard(request):
     return render(request,'dashboard.html')
 
-def AdUser(request):
+@login_required
+def AddGitUser(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        git_user = request.POST['gitusername']
+        url = 'https://github.com/'+git_user
+        r = requests.get(url)
+        soup = bs(r.content)
+        profile = soup.find('img',{'alt':'Avatar'})['src']
+        if GitUser.objects.filter(githubuser=git_user).exists():
+            messages.info(request,"this user already added! try another user")
+        else:
+
+            github= GitUser(
+                githubuser = git_user,
+                githubuserimage = profile,
+                username = username
+            )
+            github.save()
+            messages.success(request,"new Github user added successfully!!")
+            return redirect('add_username')
+
     return render(request,'user_github.html')
 
+@login_required
 def Profile(request):
-    return render(request,'image_github.html')
+    githubData = GitUser.objects.all()
+    context={
+        "data": githubData
+    }
+    return render(request,'image_github.html',context)

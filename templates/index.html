@@ -1,13 +1,13 @@
 {% extends 'base.html'%}
 {%block title%}
- login to system
+ Login to system
 {% endblock title %}
 
 {% block body %}
   <div class="container">
     <h1>this is login page</h1>
     {% for msg in messages %}
-    <h4 class="text-{{msg.tags}}">{{msg}}</h4>
+    <h4 class="text-danger">{{msg}}</h4>
     {% endfor %}
     <div class="col-md-4">
         <form action="" method="post">
@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label for="exampleInputPassword">Password</label>
                 <input required type="password" class="form-control" name="password" id="exampleInputPassword" placeholder="*******">
-                
+                <a href="{% url 'password_reset' %}" class="btn btn-link">Forgot Password?</a>
             </div>
             <button type="submit" class="btn btn-primary mt-3">Login</button>
             <a href="{% url 'signup' %}" class="btn btn-link">SignUp Here!</a>
