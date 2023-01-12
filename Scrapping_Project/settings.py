@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp'
+    'myapp',
+    'django_email_verification'
 ]
 
 MIDDLEWARE = [
@@ -135,5 +136,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = '19201203059@cse.bubt.edu.bd'
-EMAIL_HOST_PASSWORD = 'nurnobi19201203059@#'
+EMAIL_HOST_USER = 'shuvo15266@gmail.com'
+EMAIL_HOST_PASSWORD = 'qzckpcwwispndnhh'

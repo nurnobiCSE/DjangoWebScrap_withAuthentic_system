@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
@@ -6,7 +6,15 @@ from django.contrib.auth.decorators import login_required
 
 import requests
 from bs4 import BeautifulSoup as bs
+# importing for email verification :
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.conf import settings
+from django.core.mail import send_mail
+from .token import activation_token
+ 
 
+# End importing for email verification :
 from .models import *
 # Create your views here.
 
@@ -44,14 +52,32 @@ def Signup(request):
                 return redirect('signup')
             else:
                 user = User.objects.create_user(username=username,email=email,password=password)    
-                user.save()
-                messages.success(request,"registration successful")
-                return redirect('login')
+                instance = user.save(commit=False)
+                instance.is_active = False
+                instance.save()
+                site = get_current_site(request)
+                mail_subject = "Confirmation messsage for system"
+                message = render_to_string('confirmation_email.html',{
+                    "user" : instance,
+                    'domain': site.domain,
+                    'uid': instance.id,
+                    "token": activation_token.make_token(instance),
+                })
+                to_email = email.cleaned_data('email')
+                to_list = [to_email]
+                from_email = settings.EMAIL_HOST_USER
+                send_mail(mail_subject,message,from_email,to_list,fail_silently=True)
+                
+                return HttpResponse("<h2>Thanks for reagistration.A confirmationlink was sent to your email</h2>")
+                 
         else:
             messages.warning(request,"Password is not matched!")                    
             return redirect('signup')
 
     return render(request,'signup.html')
+
+def activate(request):
+    return render_to_string()
 
 @login_required
 def Dashboard(request):

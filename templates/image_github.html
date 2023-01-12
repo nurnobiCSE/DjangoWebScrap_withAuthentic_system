@@ -4,6 +4,34 @@ github-profile-picture
 {%endblock title%}
  
 {%block body%}
+<style>
+  .searchBar{
+    width: 100%;
+    height: 50px;
+    
+  }
+  #search_input {
+	background-color: rgb(0, 3, 15);
+	margin: 10px 0 0 0;
+	float: right;
+	padding: 5px;
+	color: aliceblue;
+	border-radius: 5px;
+}
+  .custombtn{
+    float: right;
+    margin: 10px 35% 0 0;
+    background-color: #0c1753 !important;
+  }
+</style>
+<div class="searchBar">
+  <form action="" method="post">
+    {% csrf_token %}
+    <button class="btn btn-primary text-light custombtn">Search</button>
+    <input type="text" name="search_input" id="search_input" size="30" placeholder="Search @username">
+  </form>
+</div>
+
 <h1 class="text-center">Github User's profile picture List</h1>
  <br>
 <div class="d-flex flex-wrap justify-content-center">

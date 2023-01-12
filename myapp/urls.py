@@ -10,5 +10,8 @@ urlpatterns = [
     path('profile-pictures',views.Profile,name='profile'),
     path('logout',views.logout,name='logout'),
 
+    # confirmation url:
+    path('activate/<uid>/<token>',views.activate,name='activate')
+
     
 ]
