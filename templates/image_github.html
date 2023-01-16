@@ -20,15 +20,20 @@ github-profile-picture
 }
   .custombtn{
     float: right;
-    margin: 10px 35% 0 0;
+    margin: 10px .2% 0 0;
     background-color: #0c1753 !important;
+  }
+  .refresh{
+    float: right;
+    margin: 10px 31% 0 0;
+    background-color: #294820 !important;
   }
 </style>
 <div class="searchBar">
-  <form action="" method="post">
-    {% csrf_token %}
+  <form action="" method="get">
+    <a href="{% url 'profile' %}" class="btn btn-primary refresh">Refresh</a>
     <button class="btn btn-primary text-light custombtn">Search</button>
-    <input type="text" name="search_input" id="search_input" size="30" placeholder="Search @username">
+    <input type="text" name="query" id="search_input" size="30" placeholder="Search by @gitusername or @creator">
   </form>
 </div>
 
@@ -39,7 +44,7 @@ github-profile-picture
     <div class="card mx-2 mb-4" style="width: 18rem;">
         <img src="{{data.githubuserimage}}" class="card-img-top" alt="Avater">
         <div class="card-body">
-          <h5 class="card-title">{{data.githubuser}}</h5>
+          <h5 class="card-title">Github : {{data.githubuser}}</h5>
           <p class="card-text">Posted By : {{data.username}}</p>
           <a href="https://github.com/{{data.githubuser}}" target="_blank" class="btn btn-primary">View Profile</a>
         </div>

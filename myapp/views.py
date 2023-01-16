@@ -12,6 +12,8 @@ from django.template.loader import render_to_string
 from django.conf import settings
 from django.core.mail import send_mail
 from .token import activation_token
+# importing for data query(multiple)
+from django.db.models import Q
  
 
 # End importing for email verification :
@@ -109,7 +111,12 @@ def AddGitUser(request):
 
 @login_required
 def Profile(request):
-    githubData = GitUser.objects.all()
+    if 'query' in request.GET:
+        query = request.GET['query']
+        githubDataQuery = Q(Q(githubuser__icontains=query) | Q(username__icontains=query))
+        githubData = GitUser.objects.filter(githubDataQuery)
+    else:    
+        githubData = GitUser.objects.all()
     context={
         "data": githubData
     }
