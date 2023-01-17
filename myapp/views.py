@@ -121,3 +121,6 @@ def Profile(request):
         "data": githubData
     }
     return render(request,'image_github.html',context)
+
+def page_error_404(request,exception):
+    return render(request,'notfound/404.html')
